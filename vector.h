@@ -20,14 +20,15 @@ class vector
     void vectorinsert(int index, int value);
     int vectorisfull();
     void vectorresize();
-    void vectorremove();
-    int vectorfind();
-    void vectoraddback();
-    void vectoraddfront();
+    void vectorremove(int value);
+    int vectorfind(int index, int value);
+    void vectoraddback(int value);
+    void vectoraddfront(int value);
     int vectorgetsize();
     int vectorgetmaxsize();
     vector operator+()const;
     vector operator-()const;
+    vector operator*()const;
 
 };
 
