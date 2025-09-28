@@ -10,13 +10,13 @@ VectorComplejo::VectorComplejo(int cap)
         cap = 1;
     a = new complejo[cap];
     size = 0;
-    capacity = cap;
+    sizemax = cap;
 }
 VectorComplejo::VectorComplejo(const VectorComplejo &o)
 {
-    capacity = o.capacity;
+    sizemax = o.sizemax;
     size = o.size;
-    a = new complejo[capacity];
+    a = new complejo[sizemax];
     for (int i = 0; i < size; ++i)
     {
         a[i] = o.a[i];
@@ -26,7 +26,7 @@ VectorComplejo &VectorComplejo::operator=(const VectorComplejo &o)
 {
     if (this != &o)
     {
-        complejo *b = new complejo[o.capacity];
+        complejo *b = new complejo[o.sizemax];
         for (int i = 0; i < o.size; ++i)
         {
             b[i] = o.a[i];
@@ -34,7 +34,7 @@ VectorComplejo &VectorComplejo::operator=(const VectorComplejo &o)
         delete[] a;
         a = b;
         size = o.size;
-        capacity = o.capacity;
+        sizemax = o.sizemax;
     }
     return *this;
 }
@@ -43,7 +43,7 @@ VectorComplejo::~VectorComplejo()
     delete[] a;
     a = nullptr;
     size = 0;
-    capacity = 0;
+    sizemax = 0;
 }
 
 // ==========================
@@ -75,7 +75,7 @@ void VectorComplejo::vectorinsert(int index, const complejo &value)
     {
         throw std::out_of_range("vectorinsert: indice invalido (0..size)");
     }
-    if (size == capacity)
+    if (size == sizemax)
     {
         vectorresize();
     }
@@ -88,7 +88,7 @@ void VectorComplejo::vectorinsert(int index, const complejo &value)
 }
 void VectorComplejo::vectoraddback(const complejo &value)
 {
-    if (size == capacity)
+    if (size == sizemax)
     {
         vectorresize();
     }
@@ -96,7 +96,7 @@ void VectorComplejo::vectoraddback(const complejo &value)
 }
 void VectorComplejo::vectoraddfront(const complejo &value)
 {
-    if (size == capacity)
+    if (size == sizemax)
     {
         vectorresize();
     }
@@ -165,10 +165,10 @@ int VectorComplejo::vectorfind(int index, const complejo &value) const
 // ==========================
 // Capacidad / tamaños
 // ==========================
-int VectorComplejo::vectorisfull() const { return size == capacity; }
+int VectorComplejo::vectorisfull() const { return size == sizemax; }
 void VectorComplejo::vectorresize()
 {
-    int newCap = capacity > 0 ? capacity * 2 : 1;
+    int newCap = sizemax > 0 ? sizemax * 2 : 1;
     complejo *b = new complejo[newCap];
     for (int i = 0; i < size; ++i)
     {
@@ -176,17 +176,17 @@ void VectorComplejo::vectorresize()
     }
     delete[] a;
     a = b;
-    capacity = newCap;
+    sizemax = newCap;
 }
 int VectorComplejo::vectorgetsize() const { return size; }
-int VectorComplejo::vectorgetmaxsize() const { return capacity; }
+int VectorComplejo::vectorgetmaxsize() const { return sizemax; }
 
 // ==========================
 // Operaciones con int
 // ==========================
 VectorComplejo VectorComplejo::operator+(int s) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -196,7 +196,7 @@ VectorComplejo VectorComplejo::operator+(int s) const
 }
 VectorComplejo VectorComplejo::operator-(int s) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -206,7 +206,7 @@ VectorComplejo VectorComplejo::operator-(int s) const
 }
 VectorComplejo VectorComplejo::operator*(int s) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -220,7 +220,7 @@ VectorComplejo VectorComplejo::operator/(int s) const
     {
         throw std::runtime_error("division por cero");
     }
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -234,7 +234,7 @@ VectorComplejo VectorComplejo::operator/(int s) const
 // ==========================
 VectorComplejo VectorComplejo::operator+(const complejo &c) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -244,7 +244,7 @@ VectorComplejo VectorComplejo::operator+(const complejo &c) const
 }
 VectorComplejo VectorComplejo::operator-(const complejo &c) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -254,7 +254,7 @@ VectorComplejo VectorComplejo::operator-(const complejo &c) const
 }
 VectorComplejo VectorComplejo::operator*(const complejo &c) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {
@@ -264,7 +264,7 @@ VectorComplejo VectorComplejo::operator*(const complejo &c) const
 }
 VectorComplejo VectorComplejo::operator/(const complejo &c) const
 {
-    VectorComplejo r(capacity);
+    VectorComplejo r(sizemax);
     r.size = size;
     for (int i = 0; i < size; ++i)
     {

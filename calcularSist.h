@@ -6,15 +6,13 @@
 #include "VectorComplejo.h"
 #include "vectorIncognitas.h"
 
-// Resuelve A·b = c  → devuelve en 'sol' el vector de corrientes (mismo orden que 'labels')
+// Resuelve A·b = c  → devuelve en 'sol' el vector de corrientes (mismo orden que 'incog')
 // Retorna false si A no es cuadrada/invertible o si dims no coinciden.
 bool solveABC(const MatrizComplejo &A, const VectorComplejo &c, VectorComplejo &sol);
 
 // Guarda resultados como pares etiqueta → valor complejo
 // TXT: una línea por etiqueta:  <label>   <re> <im>
-bool saveSolutionToTxt(const std::string &path,
-                       const VectorIncognitas &labels,
-                       const VectorComplejo &sol);
+bool saveSolutionToTxt(const std::string &path, const VectorIncognitas &labels, const VectorComplejo &sol);
 
 // BIN:
 // [int32 n]
@@ -27,4 +25,4 @@ bool solveFromTxtAndSave(const std::string &inPathTxt, const std::string &outPat
 
 bool solveFromBinAndSave(const std::string &inPathBin, const std::string &outPathTxt, const std::string &outPathBin);
 
-#endif // SOLVE_AND_EXPORT_H
+#endif 

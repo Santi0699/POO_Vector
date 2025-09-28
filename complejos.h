@@ -5,6 +5,7 @@
 #define COMPLEJOS_H_INCLUDED
 
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
@@ -29,7 +30,11 @@ public:
     double GetReal();
     double GetImag();
 
-    // Sobrecarga de operadores aritm�ticos
+    double Modulo() const;          // |z| = hypot(re, im)
+    double FaseRad() const;         // arg(z) en radianes = atan2(im, re)
+    double FaseDeg() const;         // arg(z) en grados
+
+    // Sobrecarga de operadores aritmeticos
     complejo &operator+(const complejo &);
     complejo operator-(const complejo &);
     complejo operator*(const complejo &);
@@ -40,16 +45,16 @@ public:
     complejo &operator++();
     complejo &operator++(int);
 
-    // Sobrecarga del operador de asignaci�n
+    // Sobrecarga del operador de asignacion
     complejo operator=(const complejo &); // retorna una referencia para poder hacer a = b = c
 
-    // Sobrecarga de operadores de comparaci�n
+    // Sobrecarga de operadores de comparacion
     //    friend int operator== (const complejo&, const complejo&);
     friend bool operator!=(const complejo &, const complejo &); // mas amigable al utilizar 2 operandos en la comparacion
     bool operator==(const complejo &);                          // sin utilizar el modificador friend
     friend complejo operator+(double, complejo);
 
-    // Sobrecarga del operador de inserci�n en el stream de salida
+    // Sobrecarga del operador de insercion en el stream de salida
     friend ostream &operator<<(ostream &, const complejo &);
 };
 

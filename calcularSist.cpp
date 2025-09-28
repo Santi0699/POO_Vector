@@ -1,5 +1,5 @@
 #include "calcularSist.h"
-#include "vectorIncognitas.h" // para cargar A, b(labels), c
+#include "vectorIncognitas.h" 
 #include "SistEcuaciones.h"
 #include <fstream>
 #include <sstream>
@@ -32,9 +32,9 @@ bool solveABC(const MatrizComplejo &A, const VectorComplejo &c, VectorComplejo &
 }
 
 // ----------- guardar TXT -----------
-bool saveSolutionToTxt(const std::string &path, const VectorIncognitas &labels, const VectorComplejo &sol)
+bool saveSolutionToTxt(const std::string &path, const VectorIncognitas &incog, const VectorComplejo &sol)
 {
-    if (!(labels.size() == sol.vectorgetsize()))
+    if (!(incog.size() == sol.vectorgetsize()))
     {
         return false;
     }
@@ -46,10 +46,10 @@ bool saveSolutionToTxt(const std::string &path, const VectorIncognitas &labels, 
     }
 
     int i = 0;
-    while (i < labels.size())
+    while (i < incog.size())
     {
-        std::string name = labels.get(i);
-        complejo z = sol.vectorget(i); // copia mutable para getters no const
+        std::string name = incog.get(i);
+        complejo z = sol.vectorget(i);
         complejo zm = z;
         fo << name << "\t" << zm.GetReal() << " " << zm.GetImag() << "\n";
         ++i;
@@ -58,9 +58,9 @@ bool saveSolutionToTxt(const std::string &path, const VectorIncognitas &labels, 
 }
 
 // ----------- guardar BIN -----------
-bool saveSolutionToBin(const std::string &path, const VectorIncognitas &labels, const VectorComplejo &sol)
+bool saveSolutionToBin(const std::string &path, const VectorIncognitas &incog, const VectorComplejo &sol)
 {
-    if (!(labels.size() == sol.vectorgetsize()))
+    if (!(incog.size() == sol.vectorgetsize()))
     {
         return false;
     }
@@ -71,14 +71,14 @@ bool saveSolutionToBin(const std::string &path, const VectorIncognitas &labels, 
         return false;
     }
 
-    int32_t n = static_cast<int32_t>(labels.size());
+    int32_t n = static_cast<int32_t>(incog.size());
     fb.write(reinterpret_cast<const char *>(&n), sizeof(n));
 
     int i = 0;
     bool ok = fb.good();
     while (i < n && ok)
     {
-        std::string s = labels.get(i);
+        std::string s = incog.get(i);
         int32_t len = static_cast<int32_t>(s.size());
         fb.write(reinterpret_cast<const char *>(&len), sizeof(len));
         if (fb.good())
@@ -124,10 +124,10 @@ bool saveSolutionToBin(const std::string &path, const VectorIncognitas &labels, 
 bool solveFromTxtAndSave(const std::string &inPathTxt, const std::string &outPathTxt, const std::string &outPathBin)
 {
     MatrizComplejo A;
-    VectorIncognitas labels;
+    VectorIncognitas incog;
     VectorComplejo c;
 
-    bool okLoad = loadABCLabelsFromTxt(inPathTxt, A, labels, c);
+    bool okLoad = loadABCLabelsFromTxt(inPathTxt, A, incog, c);
     if (!okLoad)
     {
         return false;
@@ -140,8 +140,8 @@ bool solveFromTxtAndSave(const std::string &inPathTxt, const std::string &outPat
         return false;
     }
 
-    bool okTxt = saveSolutionToTxt(outPathTxt, labels, sol);
-    bool okBin = saveSolutionToBin(outPathBin, labels, sol);
+    bool okTxt = saveSolutionToTxt(outPathTxt, incog, sol);
+    bool okBin = saveSolutionToBin(outPathBin, incog, sol);
 
     return okTxt && okBin;
 }
@@ -150,10 +150,10 @@ bool solveFromTxtAndSave(const std::string &inPathTxt, const std::string &outPat
 bool solveFromBinAndSave(const std::string &inPathBin, const std::string &outPathTxt, const std::string &outPathBin)
 {
     MatrizComplejo A;
-    VectorIncognitas labels;
+    VectorIncognitas incog;
     VectorComplejo c;
 
-    bool okLoad = loadABCLabelsFromBin(inPathBin, A, labels, c);
+    bool okLoad = loadABCLabelsFromBin(inPathBin, A, incog, c);
     if (!okLoad)
     {
         return false;
@@ -166,8 +166,8 @@ bool solveFromBinAndSave(const std::string &inPathBin, const std::string &outPat
         return false;
     }
 
-    bool okTxt = saveSolutionToTxt(outPathTxt, labels, sol);
-    bool okBin = saveSolutionToBin(outPathBin, labels, sol);
+    bool okTxt = saveSolutionToTxt(outPathTxt, incog, sol);
+    bool okBin = saveSolutionToBin(outPathBin, incog, sol);
 
     return okTxt && okBin;
 }

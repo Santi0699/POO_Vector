@@ -12,10 +12,10 @@ class vector
 private:
     int *a;
     int size;
-    int capacity;
+    int sizemax;
 
 public:
-    explicit vector(int capacity = 10);
+    explicit vector(int sizemax = 10);
     vector(const vector &other);
     vector &operator=(const vector &other);
     ~vector();

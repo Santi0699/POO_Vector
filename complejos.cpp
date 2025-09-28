@@ -208,3 +208,21 @@ complejo operator+ (double d, complejo c)
     return nuevo;
 }
 
+double complejo::Modulo() const
+{
+    // hypot es numéricamente más estable que sqrt(re*re + im*im)
+    return std::hypot(m_real, m_imag);
+}
+
+double complejo::FaseRad() const
+{
+    // Maneja correctamente todos los cuadrantes y el caso re = 0
+    return std::atan2(m_imag, m_real);
+}
+
+double complejo::FaseDeg() const
+{
+    // Convertir radianes a grados
+    const double rad = std::atan2(m_imag, m_real);
+    return rad * 180.0 / M_PI;  // si M_PI no está definido, usá 3.141592653589793
+}
