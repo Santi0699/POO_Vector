@@ -35,13 +35,13 @@
 // Luego c:
 //   [int32 n] == rows
 //   Para k en 0..n-1: (double re, double im)
-bool loadABCLabelsFromTxt(const std::string& path, MatrizComplejo& A, VectorIncognitas& b, VectorComplejo& c);
-bool loadABCLabelsFromBin(const std::string& path, MatrizComplejo& A, VectorIncognitas& b, VectorComplejo& c);
+bool loadABCLabelsFromTxt(const std::string &path, MatrizComplejo &A, VectorIncognitas &b, VectorComplejo &c);
+bool loadABCLabelsFromBin(const std::string &path, MatrizComplejo &A, VectorIncognitas &b, VectorComplejo &c);
 
 // -------------------- Guardado --------------------
 // TXT: escribe en bloques A:/b:/c: (un label por línea en b)
-bool saveABCLabelsToTxt(const std::string& path, const MatrizComplejo& A, const VectorIncognitas& b, const VectorComplejo& c);
+bool saveABCLabelsToTxt(const std::string &path, const MatrizComplejo &A, const VectorIncognitas &b, const VectorComplejo &c);
 // BIN: exactamente el formato descripto arriba
-bool saveABCLabelsToBin(const std::string& path, const MatrizComplejo& A, const VectorIncognitas& b, const VectorComplejo& c);
+bool saveABCLabelsToBin(const std::string &path, const MatrizComplejo &A, const VectorIncognitas &b, const VectorComplejo &c);
 
 #endif // SYSTEM_ABC_H
