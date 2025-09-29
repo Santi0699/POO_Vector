@@ -189,7 +189,7 @@ VectorComplejo vec;
 
 int main() {
     // 1) Resolver directamente desde TXT y guardar resultados
-    bool ok1 = solveFromTxtAndSave("SistEcuaciones.txt",
+    bool ok1 = solveFromTxtAndSave("sist.txt",
                                    "solucion.txt",
                                    "solucion.bin");
     std::cout << "TXT→solve→out: " << (ok1 ? "OK" : "ERROR") << "\n";

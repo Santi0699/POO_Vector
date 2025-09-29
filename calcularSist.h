@@ -6,6 +6,8 @@
 #include "VectorComplejo.h"
 #include "vectorIncognitas.h"
 
+enum class NumFormat : int;
+
 // Resuelve A·b = c  → devuelve en 'sol' el vector de corrientes (mismo orden que 'incog')
 // Retorna false si A no es cuadrada/invertible o si dims no coinciden.
 bool solveABC(const MatrizComplejo &A, const VectorComplejo &c, VectorComplejo &sol);
@@ -24,5 +26,16 @@ bool saveSolutionToBin(const std::string &path, const VectorIncognitas &labels, 
 bool solveFromTxtAndSave(const std::string &inPathTxt, const std::string &outPathTxt, const std::string &outPathBin);
 
 bool solveFromBinAndSave(const std::string &inPathBin, const std::string &outPathTxt, const std::string &outPathBin);
+
+// Nuevos: mismo contenido pero elegís salida
+bool saveSolutionToTxtFmt(const std::string &path, const VectorIncognitas &labels, const VectorComplejo &sol, NumFormat fmt);
+bool saveSolutionToBinFmt(const std::string &path, const VectorIncognitas &labels, const VectorComplejo &sol, NumFormat fmt);
+
+// Pipelines con formato elegido para la SALIDA
+bool solveFromTxtAndSaveFmt(const std::string &inPathTxt, NumFormat outFmt,
+                            const std::string &outPathTxt, const std::string &outPathBin);
+
+bool solveFromBinAndSaveFmt(const std::string &inPathBin, NumFormat outFmt,
+                            const std::string &outPathTxt, const std::string &outPathBin);
 
 #endif 

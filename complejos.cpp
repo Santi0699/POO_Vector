@@ -2,7 +2,7 @@
 // funciones y operadores de la clase complejo
 
 #include "complejos.h"
-#include <numbers>
+//#include <numbers>
 /*
 // constructor por defecto
 complejo::complejo(void)
