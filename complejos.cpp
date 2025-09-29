@@ -2,6 +2,7 @@
 // funciones y operadores de la clase complejo
 
 #include "complejos.h"
+#include <numbers>
 /*
 // constructor por defecto
 complejo::complejo(void)
@@ -220,9 +221,11 @@ double complejo::FaseRad() const
     return std::atan2(m_imag, m_real);
 }
 
+constexpr double PI = 3.14159265358979323846;
+
 double complejo::FaseDeg() const
 {
     // Convertir radianes a grados
     const double rad = std::atan2(m_imag, m_real);
-    return rad * 180.0 / M_PI;  // si M_PI no está definido, usá 3.141592653589793
+    return rad * 180.0 / PI;  // si M_PI no está definido, usá 3.141592653589793
 }
