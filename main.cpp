@@ -4,15 +4,16 @@
 #include "VectorComplejo.h"
 #include "matriz.h"
 #include "matrizComplejo.h"
-#include "archivos.h"
-#include "SistEcuaciones.h"
-#include "calcularSist.h"
-
-static void sep(const char* t) { std::cout << "\n==== " << t << " ====\n"; }
+//#include "archivos.h"
+#include "Saver.h"
+#include "solver.h"
+#include "Loader.h"
+#include "FasorConv.h"
+static void sep(const char *t) { std::cout << "\n==== " << t << " ====\n"; }
 /*
-int main() 
+int main()
 {
-    
+
     // ===============================
     // 1. Vector<int>
     // ===============================
@@ -186,22 +187,39 @@ VectorComplejo vec;
 }
 */
 
+int main()
+{
+    MatrizComplejo A;
+    VectorIncognitas b;
+    VectorComplejo c, x;
 
-int main() {
-    // 1) Resolver directamente desde TXT y guardar resultados
-    bool ok1 = solveFromTxtAndSave("sist.txt",
-                                   "solucion.txt",
-                                   "solucion.bin");
-    std::cout << "TXT→solve→out: " << (ok1 ? "OK" : "ERROR") << "\n";
-
-
-    // 3) O hacer el flujo manual si querés revisar:
-    MatrizComplejo A; VectorIncognitas bLabels; VectorComplejo c, sol;
-    if (loadABCLabelsFromTxt("sistema_labels.txt", A, bLabels, c)) {
-        if (solveABC(A, c, sol)) {
-            saveSolutionToTxt("sol_manual.txt", bLabels, sol);
-            saveSolutionToBin("sol_manual.bin", bLabels, sol);
+    // Ejemplo: leer TXT en FASOR (bloques o pipes), resolver y guardar en FASOR
+    if (loadFromTxtFasor("sist.txt", A, b, c))
+    {
+        if (solveABC(A, c, x))
+        {
+            saveSolutionTxtFasor("solucion.txt", b, x);
+            saveSolutionBinFasor("solucion.bin", b, x);
         }
     }
-    return 0;
+
+    // Ejemplo: leer TXT en RECT (bloques o pipes), resolver y guardar en RECT
+    if (loadFromTxtRect("sist.txt", A, b, c))
+    {
+        if (solveABC(A, c, x))
+        {
+            saveSolutionTxtRect("solucion1.txt", b, x);
+            saveSolutionBinRect("solucion1.bin", b, x);
+        }
+    }
+
+    // Ejemplo alternativo: leer BIN en RECT, resolver y guardar en RECT
+    if (loadFromBinRect("sistema_rect.bin", A, b, c))
+    {
+        if (solveABC(A, c, x))
+        {
+            saveSolutionTxtRect("sol_rect.txt", b, x);
+            saveSolutionBinRect("sol_rect.bin", b, x);
+        }
+    }
 }

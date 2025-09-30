@@ -45,12 +45,12 @@ void complejo::SetImag(double imag)
 };
 
 // Gets()
-double complejo::GetReal(void)
+double complejo::GetReal(void)const
 {
     return m_real;
 };
 
-double complejo::GetImag(void)
+double complejo::GetImag(void)const
 {
     return m_imag;
 };

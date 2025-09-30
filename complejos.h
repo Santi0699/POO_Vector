@@ -27,8 +27,8 @@ public:
     void SetImag(double);
 
     // gets
-    double GetReal();
-    double GetImag();
+    double GetReal()const;
+    double GetImag()const;
 
     double Modulo() const;          // |z| = hypot(re, im)
     double FaseRad() const;         // arg(z) en radianes = atan2(im, re)
